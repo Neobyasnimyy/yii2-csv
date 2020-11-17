@@ -14,9 +14,13 @@ class UploadCsv extends Model
     public $uploadedFile;
 
     /**
-     * @var $text
+     * @var array
      */
-    public $text;
+    public $data = [];
+    /**
+     * @var array
+     */
+    public $new_categories = [];
 
     public function rules()
     {
@@ -34,15 +38,38 @@ class UploadCsv extends Model
     }
 
     /**
+     * валидируем и преобразуем полученные данные
      * @return bool
      */
-    public function getText()
+    public function setData(): bool
     {
         if ($this->validate()) {
-            $this->text = file_get_contents($this->uploadedFile->tempName);
-            return true;
-        } else {
-            return false;
+//            $this->data = str_getcsv(file_get_contents($this->uploadedFile->tempName));
+            $categories = Categories::getCategories();
+            if (($handle = fopen($this->uploadedFile->tempName, "r")) !== FALSE) {
+                while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                    if ($data[0] == 'category') {
+                        continue;
+                    }
+                    $num = count($data);
+                    $item = ($num > 6) ? array_slice($data, 0, 6) : $data;
+                    $item[4] = ($item[4] == 'male') ? 1 : 0;
+                    if (
+                        !in_array($data[0], $categories)
+                        and
+                        !in_array($data[0], $this->new_categories)
+                    ) {
+                        $this->new_categories[] = $data[0];
+                    }
+                    $this->data[] = $item;
+                }
+                fclose($handle);
+            }
+            if (is_array($this->data) and !empty($this->data)) {
+                return true;
+            }
         }
+        return false;
     }
+
 }

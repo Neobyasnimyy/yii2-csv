@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\models\Categories;
+use app\models\People;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -68,22 +70,28 @@ class SiteController extends Controller
         return $this->render('index', ['model' => $model]);
     }
 
+    /**
+     * action upload csv
+     *
+     * @return Response
+     * @throws \yii\db\Exception
+     */
     public function actionUpload()
     {
         $model = new UploadCsv();
-
-        if (Yii::$app->request->isPost) {
-            $model->uploadedFile = UploadedFile::getInstance($model, 'uploadedFile');
-            if ($model->getText()) {
-                // file is uploaded successfully
-                return  $model->text;
-            }else{
-                return "error";
+        $model->uploadedFile = UploadedFile::getInstance($model, 'uploadedFile');
+        if ($model->setData()) {
+            // file is uploaded successfully
+            if ($count_new_categories = Categories::saveManyCategories($model->new_categories)) {
+                Yii::$app->session->setFlash('success', "Успешно добавленна $count_new_categories новая категория.");
             }
-
+            if ($count_new_people = People::saveManyPeople(array_splice($model->data, 0, 10))) {
+                Yii::$app->session->setFlash('success', "Успешно добавленна $count_new_people строки в таблицу People.");
+            }
+        } else {
+            Yii::$app->session->setFlash('error', "Ошибка загрузки файла.");
         }
-
-        return $this->render('upload', ['model' => $model]);
+        return $this->goHome();
     }
 
     /**

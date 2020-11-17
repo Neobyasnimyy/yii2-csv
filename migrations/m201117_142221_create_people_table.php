@@ -14,12 +14,12 @@ class m201117_142221_create_people_table extends Migration
     {
         $this->createTable('{{%people}}', [
             'id' => $this->primaryKey(),
-            'category_id'=> $this->string(),
+            'category_id'=> $this->integer(),
             'firstname'=> $this->string()->notNull(),
             'lastname'=> $this->string()->notNull(),
             'email'=> $this->string()->notNull(),
             'gender'=> $this->boolean(),
-            'birthDate'=> $this->date()->notNull(),
+            'birthDate'=> $this->date(),
         ]);
 
         $this->createIndex('category_id', '{{%people}}', 'category_id');
