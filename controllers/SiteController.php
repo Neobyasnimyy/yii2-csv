@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Categories;
 use app\models\People;
+use app\models\PeopleSearch;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -66,8 +67,27 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $model = new UploadCsv();
-        return $this->render('index', ['model' => $model]);
+        $modelUploadCsv = new UploadCsv();
+        $searchModelPeople = new PeopleSearch();
+        $dataProviderPeople = $searchModelPeople->search(
+            Yii::$app->request->queryParams
+        );
+
+//        echo '<pre>';
+//        var_dump(Yii::$app->request->queryParams);
+//        echo '</pre>';
+//        exit();
+
+        $categories = Categories::getCategories();
+
+        return $this->render(
+            'index', [
+                'modelUploadCsv' => $modelUploadCsv,
+                'searchModelPeople' => $searchModelPeople,
+                'dataProviderPeople' => $dataProviderPeople,
+                'categories' => $categories
+            ]
+        );
     }
 
     /**
@@ -83,10 +103,12 @@ class SiteController extends Controller
         if ($model->setData()) {
             // file is uploaded successfully
             if ($count_new_categories = Categories::saveManyCategories($model->new_categories)) {
-                Yii::$app->session->setFlash('success', "Успешно добавленна $count_new_categories новая категория.");
+                Yii::$app->session->setFlash('success',
+                    "Успешно добавленна $count_new_categories новая категория.");
             }
-            if ($count_new_people = People::saveManyPeople(array_splice($model->data, 0, 10))) {
-                Yii::$app->session->setFlash('success', "Успешно добавленна $count_new_people строки в таблицу People.");
+            if ($count_new_people = People::saveManyPeople($model->data)) {
+                Yii::$app->session->setFlash('success',
+                    "Успешно добавленна $count_new_people строки в таблицу People.");
             }
         } else {
             Yii::$app->session->setFlash('error', "Ошибка загрузки файла.");
@@ -94,65 +116,5 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
-    /**
-     * Login action.
-     *
-     * @return Response|string
-     */
-    public function actionLogin()
-    {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
 
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        }
-
-        $model->password = '';
-        return $this->render('login', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Logout action.
-     *
-     * @return Response
-     */
-    public function actionLogout()
-    {
-        Yii::$app->user->logout();
-
-        return $this->goHome();
-    }
-
-    /**
-     * Displays contact page.
-     *
-     * @return Response|string
-     */
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
-        }
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Displays about page.
-     *
-     * @return string
-     */
-    public function actionAbout()
-    {
-        return $this->render('about');
-    }
 }

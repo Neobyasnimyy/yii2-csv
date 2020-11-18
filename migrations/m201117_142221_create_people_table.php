@@ -14,11 +14,11 @@ class m201117_142221_create_people_table extends Migration
     {
         $this->createTable('{{%people}}', [
             'id' => $this->primaryKey(),
-            'category_id'=> $this->integer(),
+            'category_id'=> $this->tinyInteger(4)->unsigned(),
             'firstname'=> $this->string()->notNull(),
             'lastname'=> $this->string()->notNull(),
             'email'=> $this->string()->notNull(),
-            'gender'=> $this->boolean(),
+            'gender'=> $this->tinyInteger(1)->unsigned(),
             'birthDate'=> $this->date(),
         ]);
 

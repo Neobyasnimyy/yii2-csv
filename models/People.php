@@ -66,7 +66,7 @@ class People extends \yii\db\ActiveRecord
         $people = self::addCategoryId($people);
         return Yii::$app->db->createCommand()->batchInsert(self::tableName(),
             ['category_id', 'firstname', 'lastname', 'email', 'gender', 'birthDate'],
-            array_slice($people, 0, 10)
+            $people
         )->execute();
     }
 

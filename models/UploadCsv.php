@@ -53,7 +53,7 @@ class UploadCsv extends Model
                     }
                     $num = count($data);
                     $item = ($num > 6) ? array_slice($data, 0, 6) : $data;
-                    $item[4] = ($item[4] == 'male') ? 1 : 0;
+                    $item[4] = ($item[4] == 'male') ? 1 : 2;
                     if (
                         !in_array($data[0], $categories)
                         and
