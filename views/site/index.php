@@ -3,9 +3,7 @@
 use app\models\PeopleSearch;
 use app\models\UploadCsv;
 use kartik\export\ExportMenu;
-use kartik\file\FileInput;
 use yii\grid\GridView;
-use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use yii\widgets\Pjax;
@@ -83,7 +81,11 @@ $this->title = 'CSV-Yii2';
 
       ?>
 
-      <?php Pjax::begin(); ?>
+      <?php Pjax::begin([
+          'id' => 'some-id-you-like',
+          'timeout' => false,
+          'enablePushState' => true,
+      ]); ?>
 
       <?php echo $this->render('_search', [
               'model' => $searchModelPeople,
@@ -93,7 +95,7 @@ $this->title = 'CSV-Yii2';
 
       <?= GridView::widget([
           'dataProvider' => $dataProviderPeople,
-//        'filterModel' => $searchModelPeople,
+//          'filterModel' => $searchModelPeople,
           'columns' => $gridColumns,
       ]); ?>
 

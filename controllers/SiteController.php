@@ -6,12 +6,9 @@ use app\models\Categories;
 use app\models\People;
 use app\models\PeopleSearch;
 use Yii;
-use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
-use app\models\LoginForm;
-use app\models\ContactForm;
 use app\models\UploadCsv;
 use yii\web\UploadedFile;
 
@@ -23,21 +20,9 @@ class SiteController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['logout'],
-                'rules' => [
-                    [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'logout' => ['post'],
                     'upload' => ['post'],
                 ],
             ],
@@ -61,7 +46,7 @@ class SiteController extends Controller
     }
 
     /**
-     * Displays homepage.
+     * Displays homepage and search people
      *
      * @return string
      */
@@ -72,12 +57,6 @@ class SiteController extends Controller
         $dataProviderPeople = $searchModelPeople->search(
             Yii::$app->request->queryParams
         );
-
-//        echo '<pre>';
-//        var_dump(Yii::$app->request->queryParams);
-//        echo '</pre>';
-//        exit();
-
         $categories = Categories::getCategories();
 
         return $this->render(

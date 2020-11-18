@@ -73,7 +73,7 @@ use yii\widgets\ActiveForm;
 //            'value' => '18,25',
             'sliderColor' => Slider::TYPE_GREY,
             'pluginOptions' => [
-                'min' => 18,
+                'min' => 10,
                 'max' => 100,
                 'step' => 1,
                 'range' => true

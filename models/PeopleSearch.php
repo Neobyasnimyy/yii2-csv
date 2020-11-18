@@ -78,13 +78,13 @@ class PeopleSearch extends People
 
         if (!empty($this->age)) {
             $query->andWhere(['<', 'birthDate', date('Y-m-d', strtotime("-{$this->age} year"))]);
-            $query->andWhere(['>', 'birthDate', date('Y-m-d', strtotime("-".($this->age + 1)." year"))]);
+            $query->andWhere(['>', 'birthDate', date('Y-m-d', strtotime("-" . ($this->age + 1) . " year"))]);
         }
 
         if (!empty($this->age_interval)) {
-            list($start,$stop) = array_map('intval', explode(',', $this->age_interval));
+            list($start, $stop) = array_map('intval', explode(',', $this->age_interval));
             $query->andWhere(['<', 'birthDate', date('Y-m-d', strtotime("-{$start} year"))]);
-            $query->andWhere(['>', 'birthDate', date('Y-m-d', strtotime("-".($stop)." year"))]);
+            $query->andWhere(['>', 'birthDate', date('Y-m-d', strtotime("-" . ($stop) . " year"))]);
         }
 
 //        $query->andFilterWhere(['like', 'firstname', $this->firstname])
