@@ -1,14 +1,14 @@
 <p align="center">
-    <h1 align="center">Тестовое задание на основе Yii 2 Basic Project Template</h1>
+    <h1 align="center">Test task based on Yii 2 Basic Project Template</h1>
     <br>
 <p>
 
-Задание
+The task
 -------------------
 
-Разработать сервис для работы с датасетом
+Develop a service for working with a dataset
 
-Исходные данные:
+Initial data:
 CSV dataset
     'category', // любимая категория клиента
     'firstname',
@@ -17,18 +17,18 @@ CSV dataset
     'gender',
     'birthDate'
 
-Записать полученные данные в базу данных.
+Write the received data to the database.
 
-Данные отобразить в виде таблицы с постраничным выводом.
+Display data as a table with pagination.
 
-Реализовать фильтры по значениям:
-    категория
-    пол
-    дата рождения
-    возраст
-    ворзрастной промежуток
+Implement value filters:
+    category
+    gender
+    Date of Birth
+    age
+    age interval
 
-Реализовать экспорт данных (в csv) по заданным фильтрам.
+Implement data export (to csv) according to the specified filters.
 
 The template contains the basic features including user login/logout and a contact page.
 It includes all commonly used configurations that would allow you to focus on adding new
