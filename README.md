@@ -10,7 +10,7 @@ Develop a service for working with a dataset
 
 Initial data:
 CSV dataset
-    'category', // любимая категория клиента
+    'category', // favorite customer category
     'firstname',
     'lastname',
     'email',
