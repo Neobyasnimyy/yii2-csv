@@ -42,6 +42,7 @@ DIRECTORY STRUCTURE
       config/             contains application configurations
       controllers/        contains Web controller classes
       mail/               contains view files for e-mails
+      message/            contains translation files
       models/             contains model classes
       runtime/            contains files generated during runtime
       tests/              contains various tests for the basic application
