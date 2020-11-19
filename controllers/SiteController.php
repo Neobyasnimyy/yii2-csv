@@ -83,14 +83,14 @@ class SiteController extends Controller
             // file is uploaded successfully
             if ($count_new_categories = Categories::saveManyCategories($model->new_categories)) {
                 Yii::$app->session->setFlash('success',
-                    "Успешно добавленна $count_new_categories новая категория.");
+                    "Added $count_new_categories new categories successfully  .");
             }
             if ($count_new_people = People::saveManyPeople($model->data)) {
                 Yii::$app->session->setFlash('success',
-                    "Успешно добавленна $count_new_people строки в таблицу People.");
+                    "Successfully added $count_new_people rows to People table .");
             }
         } else {
-            Yii::$app->session->setFlash('error', "Ошибка загрузки файла.");
+            Yii::$app->session->setFlash('error', "File upload error.");
         }
         return $this->goHome();
     }

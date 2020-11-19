@@ -32,13 +32,13 @@ class UploadCsv extends Model
                 'extensions' => 'csv',
                 'checkExtensionByMimeType' => false,
                 'maxSize' => 1024 * 1024 * 20,
-                'tooBig' => "Файл «{file}» слишком большой. Размер не должен превышать 20 MB.",
+                'tooBig' => "The file «{file}» is too large. The size should not exceed 20 MB.",
             ],
         ];
     }
 
     /**
-     * валидируем и преобразуем полученные данные
+     * validate and transform the received data
      * @return bool
      */
     public function setData(): bool

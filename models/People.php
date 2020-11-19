@@ -71,7 +71,7 @@ class People extends \yii\db\ActiveRecord
     }
 
     /**
-     * изменяем поле category на $category_id
+     * change the category field to $category_id
      *
      * @param array $people
      * @return array
