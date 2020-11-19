@@ -23,25 +23,28 @@ use yii\widgets\ActiveForm;
         ],
     ]); ?>
 
-    <?= $form->field($model, 'category_id')->label('Category')->dropDownList(
-        [0 => 'All Categories'] + $categories,
-        [
-            'prompt' => 'Select a category...'
-        ]
-    ); ?>
+    <?= $form->field($model, 'category_id')
+        ->label(Yii::t('views', 'Category'))
+        ->dropDownList(
+            [0 => Yii::t('views', 'All')] + $categories,
+            [
+                'prompt' => Yii::t('views', 'Select a category...')
+            ]
+        ); ?>
 
     <?= $form->field($model, 'gender')->dropDownList(
         [
-            0 => 'All',
+            0 => Yii::t('views', 'All'),
             1 => 'male',
             2 => 'female'
         ],
         [
-            'prompt' => 'Select gender...'
+            'prompt' => Yii::t('views', 'Select gender...')
 
         ]) ?>
 
-    <?= '<label class="control-label" for="peoplesearch-birthdate">Birth Date</label>'; ?>
+    <?= '<label class="control-label" for="peoplesearch-birthdate">'
+    . $model->getAttributeLabel('birthDate') . '</label>'; ?>
 
     <?= DatePicker::widget([
         'model' => $model,
@@ -51,7 +54,7 @@ use yii\widgets\ActiveForm;
 //        'value' => '04-Feb-2003',
         'options' => [
             'autocomplete' => 'off',
-            'placeholder' => 'Choose your date of birth ...'
+            'placeholder' => Yii::t('views', 'Choose your date of birth ...')
         ],
         'pluginOptions' => [
             'autoclose' => true,
@@ -60,33 +63,34 @@ use yii\widgets\ActiveForm;
     ]);
     ?>
 
-    <?= $form->field($model, 'age')->textInput(['type' => 'number', 'placeholder' => 'Enter age ...']) ?>
+    <?= $form->field($model, 'age')
+        ->textInput(['type' => 'number', 'placeholder' => Yii::t('views', 'Enter age ...')]) ?>
 
-    <div class="form-group">
-        <?= '<label class="control-label" for="age-interval">Age interval</label><br>'; ?>
+  <div class="form-group">
+      <?= '<label class="control-label" for="age-interval">'
+      . $model->getAttributeLabel('age_interval') . '</label><br>'; ?>
 
-        <?= '<b class="badge">10</b> ' . Slider::widget([
-            'id' => 'age-interval',
-            'model' => $model,
-            'attribute' => 'age_interval',
-            'name' => 'age_interval',
+      <?= '<b class="badge">10</b> ' . Slider::widget([
+          'id' => 'age-interval',
+          'model' => $model,
+          'attribute' => 'age_interval',
+          'name' => 'age_interval',
 //            'value' => '18,25',
-            'sliderColor' => Slider::TYPE_GREY,
-            'pluginOptions' => [
-                'min' => 10,
-                'max' => 100,
-                'step' => 1,
-                'range' => true
-            ],
-        ]) . ' <b class="badge">100</b>';
-        ?>
-    </div>
-
+          'sliderColor' => Slider::TYPE_GREY,
+          'pluginOptions' => [
+              'min' => 10,
+              'max' => 100,
+              'step' => 1,
+              'range' => true
+          ],
+      ]) . ' <b class="badge">100</b>';
+      ?>
+  </div>
 
 
   <div class="form-group">
-      <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-      <?= Html::a('Reset', [Yii::$app->getHomeUrl()], ['class' => 'btn btn-danger']) ?>
+      <?= Html::submitButton(Yii::t('views', 'Search'), ['class' => 'btn btn-primary']) ?>
+      <?= Html::a(Yii::t('views', 'Reset'), [Yii::$app->getHomeUrl()], ['class' => 'btn btn-danger']) ?>
   </div>
 
     <?php ActiveForm::end(); ?>

@@ -7,6 +7,8 @@ $config = [
     'id' => 'basic',
     'name' => 'CSV-Yii2',
     'basePath' => dirname(__DIR__),
+    'sourceLanguage' => 'en',
+    'language' => 'en',
     'bootstrap' => ['log'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
@@ -52,10 +54,31 @@ $config = [
         'db' => $db,
 
         'urlManager' => [
+            'class' => 'codemix\localeurls\UrlManager',
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+            'languages' => ['en', 'ru'],
+            'enableDefaultLanguageUrlCode' => true,
             'rules' => [
                 '<controller:\w+>/<action:\w+>/' => '<controller>/<action>',
+            ],
+        ],
+        'i18n' => [
+            'translations' => [
+                'views*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@app/messages',
+                    'fileMap' => [
+                        'views'       => 'views.php',
+                    ],
+                ],
+                'models*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@app/messages',
+                    'fileMap' => [
+                        'models'       => 'models.php',
+                    ],
+                ],
             ],
         ],
 

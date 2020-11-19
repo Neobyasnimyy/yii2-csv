@@ -28,7 +28,7 @@ $this->title = 'CSV-Yii2';
 
     <?= $form->field($modelUploadCsv, 'uploadedFile')->fileInput() ?>
 
-  <button type="submit" class="btn btn-primary">Send</button>
+  <button type="submit" class="btn btn-primary"><?= Yii::t('views', 'Submit') ?></button>
 
     <?php ActiveForm::end() ?>
   <br>
@@ -38,6 +38,7 @@ $this->title = 'CSV-Yii2';
       $gridColumns = [
           [
               'attribute' => 'Category',
+              'label' => Yii::t('views', 'Category'),
               'value' => function ($data) use ($categories) {
                   return $categories[$data->category_id];
               },
@@ -62,12 +63,12 @@ $this->title = 'CSV-Yii2';
           'dataProvider' => $dataProviderPeople,
           'columns' => $gridColumns,
           'columnSelectorOptions' => [
-              'label' => 'Columns',
+              'label' => Yii::t('views', 'Columns'),
               'class' => 'btn btn-danger'
           ],
           'fontAwesome' => true,
           'dropdownOptions' => [
-              'label' => 'Export',
+              'label' => Yii::t('views', 'Export'),
               'class' => 'btn btn-primary'
           ],
           'exportConfig' => [

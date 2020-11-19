@@ -2,9 +2,11 @@
 
 namespace app\models;
 
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\People;
+use yii\helpers\ArrayHelper;
 
 /**
  * PeopleSearch represents the model behind the search form of `app\models\People`.
@@ -22,14 +24,20 @@ class PeopleSearch extends People
     {
         return [
             [['id', 'category_id', 'gender'], 'integer'],
-            ['age', 'number', 'max' => 100, 'message' => 'age must not exceed 100 years'],
+            ['age', 'number', 'max' => 100, 'message' => Yii::t('models', "age must not exceed 100 years")],
             ['birthDate', 'datetime', 'format' => 'yyyy-mm-dd'],
             [['firstname', 'lastname', 'email'], 'safe'],
             ['age_interval', 'string', 'max' => 7]
         ];
     }
 
-
+    public function attributeLabels()
+    {
+        return ArrayHelper::merge(parent::attributeLabels(),[
+            'age' => Yii::t('models', 'Age'),
+            'age_interval' => Yii::t('models', 'Age interval'),
+        ]);
+    }
     /**
      * {@inheritdoc}
      */

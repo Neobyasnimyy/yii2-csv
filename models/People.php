@@ -48,11 +48,11 @@ class People extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'category_id' => 'Category ID',
-            'firstname' => 'Firstname',
-            'lastname' => 'Lastname',
-            'email' => 'Email',
-            'gender' => 'Gender',
-            'birthDate' => 'Birth Date',
+            'firstname' => Yii::t('models', "Firstname"),
+            'lastname' => Yii::t('models','Lastname'),
+            'email' => Yii::t('models','Email'),
+            'gender' => Yii::t('models','Gender'),
+            'birthDate' => Yii::t('models','Birth Date'),
         ];
     }
 

@@ -14,6 +14,15 @@ class UploadCsv extends Model
     public $uploadedFile;
 
     /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'uploadedFile' => Yii::t('models', "Uploaded File"),
+        ];
+    }
+    /**
      * @var array
      */
     public $data = [];
@@ -32,7 +41,8 @@ class UploadCsv extends Model
                 'extensions' => 'csv',
                 'checkExtensionByMimeType' => false,
                 'maxSize' => 1024 * 1024 * 20,
-                'tooBig' => "The file «{file}» is too large. The size should not exceed 20 MB.",
+                'tooBig' => Yii::t('models', "The file «{file}» is too large.
+                 The size should not exceed 20 MB."),
             ],
         ];
     }

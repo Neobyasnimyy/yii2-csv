@@ -1,6 +1,7 @@
 <?php
 
 /* @var $this \yii\web\View */
+
 /* @var $content string */
 
 use app\widgets\Alert;
@@ -38,7 +39,16 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/']],
+            [
+                'label' => (\Yii::$app->language == 'ru') ? 'EU' : 'RU',
+                'url' => array_merge(
+                    \Yii::$app->request->get(),
+                    [
+                        \Yii::$app->controller->route,
+                        'language' => (\Yii::$app->language == 'ru') ? 'en' : 'ru']
+                )
+            ],
+            ['label' => Yii::t('views', 'Home'), 'url' => ['/']],
         ],
     ]);
     NavBar::end();
@@ -55,7 +65,8 @@ AppAsset::register($this);
 
 <footer class="footer">
   <div class="container">
-    <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+    <p class="pull-left">&copy; My Company <?= date('Y') ?> | <?= $this->render('select-language') ?></p>
+
 
     <p class="pull-right"><?= Yii::powered() ?></p>
   </div>
